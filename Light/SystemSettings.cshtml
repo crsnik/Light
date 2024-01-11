@@ -1,0 +1,45 @@
+﻿@page
+@model SystemSettingsModel
+@{
+    ViewData["Title"] = "Налаштування Системи";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Форма для введення та зміни налаштувань системи -->
+<form method="post" asp-page-handler="UpdateSettings">
+    <label for="settingName">Назва налаштування:</label>
+    <input type="text" id="settingName" name="settingName" asp-for="SettingName" required />
+
+    <label for="settingValue">Значення налаштування:</label>
+    <input type="text" id="settingValue" name="settingValue" asp-for="SettingValue" required />
+
+    <button type="submit">Зберегти налаштування</button>
+</form>
+
+<!-- Відображення поточних налаштувань -->
+@if (Model.Settings != null && Model.Settings.Any())
+{
+        <h2>Поточні налаштування:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва налаштування</th>
+                    <th>Значення налаштування</th>
+                    <!-- Додайте інші заголовки стовпців за потребою -->
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var setting in Model.Settings)
+            {
+                        <tr>
+                            <td>@setting.Id</td>
+                            <td>@setting.SettingName</td>
+                            <td>@setting.SettingValue</td>
+                            <!-- Додайте інші стовпці за потребою -->
+                        </tr>
+            }
+            </tbody>
+        </table>
+}

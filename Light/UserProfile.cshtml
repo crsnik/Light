@@ -1,0 +1,37 @@
+﻿@page
+@model UserProfileModel
+@{
+    ViewData["Title"] = "Профіль Користувача";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Форма для редагування профілю користувача -->
+<form method="post" asp-page-handler="UpdateProfile">
+    <label for="name">Ім'я:</label>
+    <input type="text" id="name" name="name" asp-for="Name" required />
+
+    <label for="surname">Прізвище:</label>
+    <input type="text" id="surname" name="surname" asp-for="Surname" required />
+
+    <label for="email">Електронна пошта:</label>
+    <input type="email" id="email" name="email" asp-for="Email" required />
+
+    <label for="phone">Телефон:</label>
+    <input type="text" id="phone" name="phone" asp-for="Phone" required />
+
+    <!-- Додайте інші властивості профілю за потребою -->
+
+    <button type="submit">Оновити профіль</button>
+</form>
+
+<!-- Відображення поточних даних профілю -->
+@if (Model.Profile != null)
+{
+    <h2>Поточний профіль:</h2>
+    <p><strong>Ім'я:</strong> @Model.Profile.Name</p>
+    <p><strong>Прізвище:</strong> @Model.Profile.Surname</p>
+    <p><strong>Електронна пошта:</strong> @Model.Profile.Email</p>
+    <p><strong>Телефон:</strong> @Model.Profile.Phone</p>
+    <!-- Виведіть інші властивості профілю за потребою -->
+}

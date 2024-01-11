@@ -1,0 +1,22 @@
+﻿@page
+@model LightManagementModel
+@{
+    ViewData["Title"] = "Управління Освітленням";
+}
+
+<h1>Управління Освітленням</h1>
+
+<!-- Форма для управління станом освітлення -->
+<form method="post" asp-page-handler="ToggleLights">
+    <label for="lightSwitch">Увімкнути/вимкнути освітлення:</label>
+    <input type="checkbox" id="lightSwitch" name="lightSwitch" asp-for="LightSwitch" />
+    <button type="submit">Зберегти</button>
+</form>
+
+<!-- Додайте інші елементи форми за потреби -->
+
+<!-- Повідомлення про стан освітлення -->
+@if (Model.LightSwitch != null)
+{
+        <p>Стан освітлення: @Model.LightSwitchText</p>
+}

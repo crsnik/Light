@@ -1,0 +1,58 @@
+﻿@page
+@model UserManagementModel
+@{
+    ViewData["Title"] = "Керування Користувачами";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Форма для додавання нового користувача -->
+<form method="post" asp-page-handler="AddUser">
+    <label for="name">Ім'я:</label>
+    <input type="text" id="name" name="name" asp-for="Name" required />
+
+    <label for="surname">Прізвище:</label>
+    <input type="text" id="surname" name="surname" asp-for="Surname" required />
+
+    <label for="email">Електронна пошта:</label>
+    <input type="email" id="email" name="email" asp-for="Email" required />
+
+    <label for="phone">Телефон:</label>
+    <input type="text" id="phone" name="phone" asp-for="Phone" required />
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" asp-for="Password" required />
+
+    <button type="submit">Додати користувача</button>
+</form>
+
+<!-- Відображення списку користувачів -->
+@if (Model.Users != null && Model.Users.Any())
+{
+        <h2>Список користувачів:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ім'я</th>
+                    <th>Прізвище</th>
+                    <th>Електронна пошта</th>
+                    <th>Телефон</th>
+                    <!-- Додайте інші заголовки стовпців за потребою -->
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in Model.Users)
+            {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.Name</td>
+                            <td>@user.Surname</td>
+                            <td>@user.Email</td>
+                            <td>@user.Phone</td>
+                            <!-- Додайте інші стовпці за потребою -->
+                        </tr>
+            }
+            </tbody>
+        </table>
+}

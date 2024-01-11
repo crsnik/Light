@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Головна сторінка";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+        <p>Ви увійшли як: @User.Identity.Name</p>
+        <p><a asp-page="/LightManagement">Перейти до управління освітленням</a></p>
+        <form method="post" asp-page="/Logout">
+            <button type="submit">Вийти</button>
+        </form>
+}
+else
+{
+        <p>Ласкаво просимо! Будь ласка, увійдіть:</p>
+        <form method="post" asp-page="/Login">
+            <input type="text" name="Username" placeholder="Ім'я користувача" required />
+            <input type="password" name="Password" placeholder="Пароль" required />
+            <button type="submit">Увійти</button>
+        </form>
+}
