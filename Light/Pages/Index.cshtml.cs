@@ -3,10 +3,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-using YourDbConnect;
+using Microsoft.EntityFrameworkCore;
+using Light;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 public class IndexModel : PageModel
 {
+    private readonly IConfiguration _configuration;
+    private readonly YourDbContext _context;
+
+    public 
+        IndexModel(YourDbContext context, IConfiguration configuration)
+    {
+        _context = context; _configuration = configuration;
+    }
+
+    public async Task OnGetAsync()
+    {
+        var users = await _context.Users.ToListAsync();
+    }
+
     [BindProperty]
     public string Username { get; set; }
 
@@ -51,13 +68,14 @@ public class IndexModel : PageModel
     {
         // Визначте параметри підключення (наприклад, рядок підключення до бази даних)
         var optionsBuilder = new DbContextOptionsBuilder<YourDbContext>();
-        optionsBuilder.UseSqlServer("your_connection_string_here");
+        var connString = _configuration["ConnectionStrings:DefaultConnection"];
+        optionsBuilder.UseSqlServer(connString);
 
         // Використовуйте ваш контекст бази даних (в цьому прикладі EF Core).
         using (var dbContext = new YourDbContext())
         {
             // Перевірка наявності користувача в базі даних за ім'ям користувача та паролем.
-            var user = dbContext.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            var user = dbContext.Users.FirstOrDefault(u => u.Email == username && u.Password == password);
 
             // Повертайте true, якщо користувач існує та введений пароль вірний.
             // В іншому випадку повертайте false.

@@ -23,7 +23,7 @@ public class LightManagementModel : PageModel
 
         if (user != null)
         {
-            LightSwitch = user.IsLightOn; 
+            //??LightSwitch = user.IsLightOn; 
         }
     }
 
@@ -33,7 +33,7 @@ public class LightManagementModel : PageModel
 
         if (user != null)
         {
-            user.IsLightOn = !user.IsLightOn;  
+           // user.IsLightOn = !user.IsLightOn;  
             _dbContext.SaveChanges(); // «берегти зм≥ни в баз≥ даних
         }
 
